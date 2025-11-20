@@ -5,83 +5,70 @@
 /* El contenedor puede mostrar el peek del ítem siguiente */
 .horizontal-gallery,
 .slider-h,
-.hero-gallery {
-  overflow: visible;           /* deja asomar el 3º */
-  padding-left: 8px;           /* aire a la izquierda */
-  padding-right: 48px;         /* aire a la derecha para el peek */
+.hero-gallery{
+  overflow: visible;
+  padding-left: 8px;
+  padding-right: 48px;
 }
 
 /* Espacio entre slides (coincidir con slideMargin del JS) */
 .horizontal-gallery li,
 .slider-h li,
-.hero-gallery li {
+.hero-gallery li{
   margin-right: 28px;
 }
 
-/* No fuerces ancho de li: deja que LF calcule */
+/* No fuerces ancho de li: deja que el plugin calcule */
 .lightSlider > li,
-.lSSlideWrapper .lSSlide > * {
+.lSSlideWrapper .lSSlide > *{
   display: inline-block;
   vertical-align: top;
   box-sizing: border-box;
-  /* ¡No poner width:auto !important aquí! */
 }
 
-/* En móvil: 1 por vista; LightSlider ya lo hará por JS, pero aseguramos que el gap no rompa el ancho visual */
-@media (max-width: 600px) {
+/* En móvil/tablet: gaps más chicos (match JS breakpoint 768) */
+@media (max-width: 768px){
   .horizontal-gallery,
   .slider-h,
-  .hero-gallery {
-    padding-right: 12px;
-  }
+  .hero-gallery{ padding-right: 12px; }
   .horizontal-gallery li,
   .slider-h li,
-  .hero-gallery li {
-    margin-right: 12px;
-  }
+  .hero-gallery li{ margin-right: 12px; }
 }
 
 /* ================================
    SLIDERS VERTICALES
    ================================ */
 
-.vertical-gallery li img,
-.slider-v li img {
-  width: 100%;
-  height: auto;
-  object-fit: contain;
-  border-radius: 8px;
+/* Posters verticales: recorte con bordes y sin “barras” */
+.vertical-gallery li .latest-b-img,
+.slider-v li .latest-b-img{
+  overflow: hidden;
+  border-radius: 10px;
 }
 
-/* Si usás máscara/adorno en la imagen vertical */
-.vertical-gallery li .latest-b-img,
-.slider-v li .latest-b-img {
-  overflow: visible;
+.vertical-gallery li img,
+.slider-v li img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 /* ================================
-   CONTROLES: SOLO 2 FLECHAS CUSTOM
+   CONTROLES LIGHTSLIDER (usar las nativas)
    ================================ */
 
-/* Oculta flechas legacy del plugin */
-.lSSlideOuter .lSAction a.lSPrev,
-.lSSlideOuter .lSAction a.lSNext {
-  display: none !important;
-}
-
-/* Capa de acciones que aloja tus flechas */
-.lSSlideOuter .lSAction {
+/* Capa de acciones y botones */
+.lSSlideOuter .lSAction{
   position: absolute;
-  inset: 0;                 /* top/right/bottom/left:0 */
+  inset: 0;
   height: 100%;
   z-index: 999;
-  pointer-events: none;     /* la capa no captura eventos */
+  pointer-events: none; /* la capa no captura eventos, solo los botones */
 }
-
-/* Tus botones */
-.lSSlideOuter .lSAction > a.ls-btn-prev,
-.lSSlideOuter .lSAction > a.ls-btn-next {
-  pointer-events: auto;     /* los botones sí capturan */
+.lSSlideOuter .lSAction a{
+  pointer-events: auto;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -94,15 +81,26 @@
   box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 }
 
-.lSSlideOuter .lSAction > a.ls-btn-prev { left: 8px; }
-.lSSlideOuter .lSAction > a.ls-btn-next { right: 8px; }
-.lSSlideOuter .lSAction > a i { color: #222; font-size: 16px; }
+/* Ubicación (usa las nativas del plugin) */
+.lSSlideOuter .lSAction .lSPrev{ left: 8px; }
+.lSSlideOuter .lSAction .lSNext{ right: 8px; }
 
-@media (max-width: 768px) {
-  .lSSlideOuter .lSAction > a.ls-btn-prev { left: 6px; }
-  .lSSlideOuter .lSAction > a.ls-btn-next { right: 6px; }
-  .lSSlideOuter .lSAction > a.ls-btn-prev,
-  .lSSlideOuter .lSAction > a.ls-btn-next { width: 36px; height: 36px; }
+/* Iconos con Font Awesome */
+.lSSlideOuter .lSAction .lSPrev::before,
+.lSSlideOuter .lSAction .lSNext::before{
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  font-size: 16px;
+  color: #222;
+  content: "\f104"; /* left por defecto */
+  line-height: 1;
+}
+.lSSlideOuter .lSAction .lSNext::before{ content: "\f105"; }
+
+@media (max-width: 768px){
+  .lSSlideOuter .lSAction .lSPrev{ left: 6px; }
+  .lSSlideOuter .lSAction .lSNext{ right: 6px; }
+  .lSSlideOuter .lSAction a{ width: 36px; height: 36px; }
 }
 
 /* ================================
@@ -113,52 +111,50 @@ input[type="search"]::-webkit-search-decoration,
 input[type="search"]::-webkit-search-results-button,
 input[type="search"]::-webkit-search-results-decoration,
 input[type="search"]::-ms-clear,
-input[type="search"]::-ms-reveal {
+input[type="search"]::-ms-reveal{
   display: none !important;
   width: 0 !important;
   height: 0 !important;
 }
-input[type="search"] {
+input[type="search"]{
   -webkit-appearance: none !important;
   -moz-appearance: none !important;
   appearance: none !important;
-  background-image: none !important; /* por si había un svg de fondo */
+  background-image: none !important;
 }
 
 /* ===== Ajustes header / logo / menú ===== */
-.logo img {
-  max-width: 180px;    /* Reduce el tamaño del logo */
+.logo img{
+  max-width: 180px;
   height: auto;
   display: block;
   padding: 8px;
 }
 
-/* Aplica a tu menú principal (añadiremos la clase nav-options en los HTML) */
-.nav-options {
+.nav-options{
   display: flex;
-  gap: 12px;           /* reduce espacio entre items */
+  gap: 12px;
   align-items: center;
-  font-size: 14px;     /* reduce el tamaño de fuente */
+  font-size: 14px;
   list-style: none;
   margin: 0;
   padding: 0;
 }
-
-.nav-options li a {
+.nav-options li a{
   display: inline-block;
-  padding: 8px 10px;   /* controla el «click area» y el espaciado */
+  padding: 8px 10px;
   color: inherit;
   text-decoration: none;
 }
 
-/* Oculta el checkbox nativo que mostraba la "tilde" (visualmente fuera de vista) */
-.menu-btn {
+/* Oculta el checkbox nativo */
+.menu-btn{
   position: absolute;
   left: -9999px;
 }
 
-/* Por defecto ocultamos el icono hamburguesa en desktop */
-.menu-icon {
+/* Hamburguesa oculta en desktop */
+.menu-icon{
   display: none;
   cursor: pointer;
   background: transparent;
@@ -166,8 +162,8 @@ input[type="search"] {
   padding: 8px;
 }
 
-/* Estilos del icono hamburguesa (span.nav-icon) - se muestran en móvil */
-.nav-icon {
+/* Icono hamburguesa */
+.nav-icon{
   display: block;
   width: 22px;
   height: 2px;
@@ -176,7 +172,7 @@ input[type="search"] {
   transition: background .2s ease;
 }
 .nav-icon::before,
-.nav-icon::after {
+.nav-icon::after{
   content: "";
   position: absolute;
   left: 0;
@@ -185,55 +181,126 @@ input[type="search"] {
   background: #222;
   transition: transform .2s ease, top .2s ease, bottom .2s ease;
 }
-.nav-icon::before { top: -7px; }
-.nav-icon::after  { bottom: -7px; }
+.nav-icon::before{ top: -7px; }
+.nav-icon::after { bottom: -7px; }
 
-/* Cuando el checkbox está checked podemos animar el icono (opcional) y mostrar menú en móvil */
-.menu-btn:checked + .menu-icon .nav-icon {
-  background: transparent;
+/* Estado abierto */
+.menu-btn:checked + .menu-icon .nav-icon{ background: transparent; }
+.menu-btn:checked + .menu-icon .nav-icon::before{
+  transform: rotate(45deg); top: 0;
 }
-.menu-btn:checked + .menu-icon .nav-icon::before {
-  transform: rotate(45deg);
-  top: 0;
-}
-.menu-btn:checked + .menu-icon .nav-icon::after {
-  transform: rotate(-45deg);
-  bottom: 0;
+.menu-btn:checked + .menu-icon .nav-icon::after{
+  transform: rotate(-45deg); bottom: 0;
 }
 
-/* Responsive: en móvil ocultamos el nav principal y mostramos la hamburguesa */
-@media (max-width: 768px) {
-  .nav-options {
-    display: none;               /* oculto por defecto en móvil */
+/* Menú móvil */
+@media (max-width: 768px){
+  .nav-options{
+    display: none;
     position: absolute;
     top: 100%;
-    left: 0;
-    right: 0;
+    left: 0; right: 0;
     background: #fff;
     padding: 12px;
     box-shadow: 0 6px 16px rgba(0,0,0,0.12);
     flex-direction: column;
     gap: 8px;
-    z-index: 50;
+    z-index: 1200;
+  }
+  .menu-btn:checked ~ .nav-options{ display: flex; }
+
+  .menu-icon{ display: inline-flex; width: 40px; height: 40px; align-items: center; justify-content: center; padding: 0; }
+  .nav-options li a{ padding: 10px 8px; font-size: 15px; }
+}
+
+/* Permitir swipe horizontal en sliders (no bloquear el gesto) */
+.slider-h img,
+.showcase-box img{
+  touch-action: auto;
+  -ms-touch-action: auto;
+  -webkit-user-drag: none;
+  user-drag: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Ocultar icono en pantallas grandes explícitamente */
+@media (min-width: 769px){
+  .menu-icon{ display: none; }
+}
+
+/* ===== MOBILE LAYOUT & HEADER (≤768px) ===== */
+@media (max-width: 768px){
+
+  /* Header fijo en una sola fila */
+  .sa-nav{
+    position: fixed; inset: 0 0 auto 0; z-index: 1000;
+    display: grid !important;
+    grid-template-columns: auto 1fr auto;   /* logo | search | burger */
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    background: #fff;
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+  }
+  .sa-nav .logo img{
+    max-height: 42px !important; /* un poco más grande */
+    height: auto; width: auto;
+  }
+  .sa-nav .search{
+    height: 40px;
+    padding: 0 12px;
+    background: rgba(245,245,245,0.92);  /* gris más claro */
+    border-radius: 20px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .sa-nav .search input[type="search"]{
+    height: 28px; border: 0; outline: 0; background: transparent; width: 100%;
   }
 
-  /* Si el checkbox está checked, mostramos el menú (input ~ ul funciona por la estructura del HTML) */
-  .menu-btn:checked ~ .nav-options {
-    display: flex;
-  }
+  /* Que el contenido no se meta debajo del header */
+  #main{ padding-top: 88px; }
+}
 
-  .menu-icon {
-    display: block; /* mostramos icono hamburguesa en móvil */
-  }
+/* ===== MOBILE SLIDES (≤768px) ===== */
 
-  /* Ajustes de los links en móvil */
-  .nav-options li a {
-    padding: 10px 8px;
-    font-size: 15px;
+/* Horizontales: 1 por vista (JS lo fuerza; aquí el aspecto y márgenes) */
+@media (max-width: 768px){
+  .slider-h .showcase-box{
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 16 / 9;
+    margin: 0 8px 14px;
+  }
+  .slider-h .showcase-box img{
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center top;
   }
 }
 
-/* Ocultar icono en pantallas grandes explícitamente (por si hay override) */
-@media (min-width: 769px) {
-  .menu-icon { display: none; }
+/* Verticales: 2 por vista → no forzar 100% (dejar que el slide mida ~50%) */
+@media (max-width: 768px){
+  .slider-v .latest-box{
+    width: auto !important;     /* <— clave: permite 2 por vista */
+    margin: 14px 6px;
+  }
+  .slider-v .latest-b-img{
+    width: 100%;
+    aspect-ratio: 2 / 3;        /* 280x420 */
+    height: auto;
+    overflow: hidden;
+  }
+  .slider-v .latest-b-img img{
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: 50% 8%;
+  }
+  .latest-b-text{
+    gap: 2px;
+    margin: 6px 0 14px;
+  }
 }
+
