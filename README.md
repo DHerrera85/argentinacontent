@@ -1,6 +1,9 @@
-Argentina Content
+# Argentina Content
 
 Argentina Content es un sitio estático que recopila y presenta series argentinas por categorías con un diseño tipo plataforma de streaming. Incluye galerías horizontales y verticales con desplazamiento táctil, navegación responsive, buscador en el header y componentes accesibles (roles ARIA, teclado y swipe).
+
+Preview (inserta tu imagen)
+![Preview del sitio](https://github.com/DHerrera85/argentinacontent/blob/main/preview.png)
 
 Sitio online: https://argentinacontent.netlify.app/
 
